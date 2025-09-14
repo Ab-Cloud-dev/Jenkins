@@ -1,0 +1,36 @@
+pipeline {
+    agent { label 'Node01' }   // match the label you gave your node agent
+    triggers {
+        githubPush()
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // clone the repository
+                git branch: 'main', url: 'https://github.com/Ab-Cloud-dev/Jenkins.git'
+            }
+        }
+        stage('Deploy to Apache Agent') {
+            steps {
+                // Copy/update index.html to agent's Apache root
+                // You might need sudo to write to /var/www/html if permissions require
+                sh '''
+                  echo "Copying index.html to Apache web root..."
+                  pwd
+                  ls -la
+                  sudo cp index.php /var/www/html/index.php
+                  # optionally restart or reload Apache
+                  sudo systemctl restart apache2 
+                '''
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Deployment succeeded!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}
