@@ -53,7 +53,7 @@
 <body>
     <div class="container">
         <p class="greeting" id="greetingMessage"></p>
-        <h1>Welcome to Your Apache2 Server!</h1>
+        <h1>Welcome to Your Awesome Server!</h1>
         <p>This page is being served by the machine with the hostname:</p>
         <p class="hostname"><strong><?php echo gethostname(); ?></strong></p>
     </div>
@@ -80,3 +80,4 @@
 </body>
 
 </html>
+
